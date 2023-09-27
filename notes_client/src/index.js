@@ -28,13 +28,25 @@ const App = () =>{
             getAllNotas()
         },[]
         )
-    const criarNota=()=>{
-        console.log(titulo)
-        console.log(conteudo)
+    const criarNota= async()=>{
+        await fetch(`${baseURL}/notes/`,{
+            method:'POST',
+            headers:{
+                'Content-Type':'application/json'
+            },
+            body:JSON.stringify({
+                titulo:titulo,
+                conteudo:conteudo
+            })
+        })
     }
-    const deleteItem=() =>{
-        console.log()
+    const deleteItem= async( id ) => {
+        await fetch(`${baseURL}/notes/${id}`,{
+            method:'DELETE',
+        })
+        setNotas(notas.filter((item)=> item.id !== id))
     }
+
     return(
         <div>
             <div className="header">
